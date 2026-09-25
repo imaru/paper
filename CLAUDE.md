@@ -1,32 +1,75 @@
-# Paper Writing Project
+# CLAUDE.md
 
-This directory is for drafting, editing, and proofreading an academic paper.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Project Overview
+## プロジェクト概要
 
-<!-- TODO: Fill in paper title, target venue, and submission deadline -->
+論文「ロボットとのコミュニケーションにおける可視性と共在の効果」の執筆・編集プロジェクト．
 
-## Files
+- **ターゲット誌：** 認知科学（日本認知科学会）
+- **論文種別：** 研究論文（査読あり）
+- **著者：** 坂井萌々子・加藤樹里・伊丸岡俊秀（金沢工業大学）
 
-- ファイルの場所
-  -  ~/Dropbox/Class/2026/2026sakai
--  原稿ファイル
-   -   sakai2026cop.tex
-- <!-- Add paper source files (e.g., paper.tex, sections/*.tex) as they are created -->
+## ファイル構成
 
-## Writing Guidelines
+すべての作業ファイルは `~/Dropbox/Class/2026/2026sakai/` にある（このリポジトリは管理用）．
 
-<!-- TODO: Add specific guidelines after the user specifies requirements -->
+| ファイル | 内容 |
+|---------|------|
+| `sakai2026cop.tex` | 論文本文（主要な編集対象） |
+| `paper.bib` | 参考文献データベース |
+| `cs.cls` | 認知科学誌スタイルファイル |
+| `jcss.bst` | 参考文献スタイル |
+| `review_report.md` | 第1回レビューレポート（2026-06-16） |
+| `review_report2.md` | 第2回レビューレポート（2026-07-01） |
+| `acceptance_assessment.md` | 採択可能性の評価メモ |
 
-- ターゲットとしている雑誌は「認知科学」
+## ビルド方法
 
-## Claude's Role
+```bash
+cd ~/Dropbox/Class/2026/2026sakai/
+platex sakai2026cop.tex && bibtex sakai2026cop && platex sakai2026cop.tex && platex sakai2026cop.tex
+dvipdfmx sakai2026cop.dvi
+```
 
-- 論理的に記述されているかのチェック
-- 引用すべき重要な文献が抜けていないかのチェック
-- 誤字や誤変換のチェック
-- 書式のチェック
-- 論文末尾に「この研究の限界」を追加すべきと考えているので、その内容の提案
-- 「この研究の限界」の後に「まとめ」を追加すべきと考えているので、その内容の提案
-- 修正、追加が必要な内容をファイルにまとめて作成や
-<!-- TODO: Define tasks after the user specifies requirements -->
+または TeXShop / TeXworks でコンパイル（dvipdfmxエンジン必須）．
+
+## 論文構成
+
+1. 本研究の背景と目的
+   - ロボットとのコミュニケーション
+   - HRIとHHIの比較
+   - コミュニケーション状況の多様化
+2. 実験1 — ロボットと直接会話（被験者間4条件）
+3. 実験2 — 模擬会話動画を視聴（HRI/HHI × 共在/非共在 × 可視/不可視，オンライン実験）
+4. 総合考察
+   - 物理的共在の効果
+   - 可視性の効果
+   - HRIとHHIにおける識別の手がかり
+   - 本研究の限界
+   - まとめ
+
+主な独立変数：物理的共在（共在/非共在）× 可視性（可視/不可視）  
+主な従属変数：ロボット/対人魅力，社会的存在感，識別可能性  
+参照論文：Croes et al.（2016）— HHIにおける同様の検討
+
+## 書式規則（認知科学誌）
+
+- 句読点は「，」「．」（「、」「。」は使用しない）
+- 統計の効果量は `\eta_p^2` 表記（`\eta^2_p` と混在させない）
+- 図表の参照は `図\ref{...}`・`表\ref{...}` を使用（番号直打ち禁止）
+- 著者名引用：文中では `\citeA{}`，括弧内では `\cite{}`
+- 社会的存在感の略記「社会的存在」は使用しない（「感」を必ずつける）
+- 統計的に有意でない場合は「有意ではなかった」（「有意差ではなかった」は不可）
+
+## Claudeの役割
+
+レビューごとに `review_reportN.md`（N=連番）をプロジェクトディレクトリに作成して納品する．レポートには以下を含める：
+
+1. **誤字・誤変換チェック** — スペルミス，タイポ，脱字
+2. **書式チェック** — 句読点，統計表記，相互参照
+3. **引用文献チェック** — 存在しないキー，内容ミスマッチ，追加候補
+4. **論理的記述チェック** — 仮説・結果・考察の整合性
+5. **英文チェック** — アブストラクトの文法・表現
+
+修正提案はdiff形式（`-` 現行 / `+` 修正案）で示す．
